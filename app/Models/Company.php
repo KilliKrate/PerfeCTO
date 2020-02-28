@@ -1,8 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Company extends Model
 {
@@ -11,19 +12,15 @@ class Company extends Model
     // Primary Key
     protected $primaryKey = 'id';
     // Timestamps
-    protected $timestamps = false;
+    public $timestamps = false;
     // Fillable columns
     protected $fillable = [
         'business_name',
         'n_employees',
-        'contract_date', 
-        'type', 
-        'ateco', 
+        'contract_date',
+        'type',
+        'ateco',
         'address'
-    ];
-    // The contract date will be casted to datetime when accessed
-    protected $casts = [
-        'contract_date' => 'datetime'
     ];
 
     public function ateco() {
@@ -35,7 +32,7 @@ class Company extends Model
     }
 
     public function address() {
-        return $this->belongsTo('App\Models\Address', 'address');
+        return $this->hasOne('App\Models\Address', 'address');
     }
 
     public function specializations() {
@@ -58,5 +55,5 @@ class Company extends Model
     public function contacts() {
         return $this->hasMany('App\Models\Contact', 'contacts', 'company');
     }
-    
+
 }
