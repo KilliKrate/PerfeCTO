@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Illuminate\Support\Facades\DB;
 use App\Models\Company;
 use App\Models\Type;
 use App\Models\Ateco;
 use App\Models\Address;
 use App\Http\Resources\Company as CompanyResource;
+
 
 class CompaniesController extends Controller
 {

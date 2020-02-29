@@ -11,14 +11,15 @@ class Ateco extends Model
     // Primary Key
     protected $primaryKey = 'code';
     // Timestamps
-    protected $timestamps = false;
+    public $timestamps = false;
     // These fields cannot be mass assigned with an array
     protected $guarded = [
         'code',
         'description'
     ];
 
-    public function company() {
+    public function company()
+    {
         return $this->hasMany('App\Models\Company', 'ateco');
     }
 }

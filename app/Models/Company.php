@@ -23,27 +23,33 @@ class Company extends Model
         'address'
     ];
 
-    public function ateco() {
-        return $this->belongsTo('App\Models\Ateco', 'ateco');
+    public function ateco_rel()
+    {
+        return $this->belongsTo('App\Models\Ateco', 'ateco', 'code');
     }
 
-    public function type() {
-        return $this->belongsTo('App\Models\Type', 'type');
+    public function type_rel()
+    {
+        return $this->belongsTo('App\Models\Type', 'type', 'id');
     }
 
-    public function address() {
-        return $this->hasOne('App\Models\Address', 'address');
+    public function address_rel()
+    {
+        return $this->hasOne('App\Models\Address', 'id', 'address');
     }
 
-    public function specializations() {
+    public function specializations()
+    {
         return $this->belongsToMany(
             'App\Models\Specialization',
             'companies_specializations',
             'company',
-            'specialization');
+            'specialization'
+        );
     }
 
-    public function fields() {
+    public function fields()
+    {
         return $this->belongsToMany(
             'App\Models\Field',
             'companies_fields',
@@ -52,8 +58,8 @@ class Company extends Model
         );
     }
 
-    public function contacts() {
+    public function contacts()
+    {
         return $this->hasMany('App\Models\Contact', 'contacts', 'company');
     }
-
 }
