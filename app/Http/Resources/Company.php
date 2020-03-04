@@ -23,8 +23,9 @@ class Company extends JsonResource
                 'ateco' => $this->ateco
             ],
             'relationships' => [
-                'type' => $this->type_rel,
-                'address' => $this->address_rel
+                'type' => $this->type_rel->name,
+                'address' => $this->address_rel->name,
+                'main_field' => $this->main_field_rel
             ]
         ];
     }

@@ -14,11 +14,15 @@ class Field extends Model
     public $timestamps = false;
     // These fields cannot be mass assigned with an array
     protected $fillable = [
-        'name',
-        'main'
+        'name'
     ];
 
-    public function companies()
+    public function main_companies()
+    {
+        return $this->hasMany('App\Models\Company', 'main_field', 'id');
+    }
+
+    public function secondary_companies()
     {
         return $this->belongsToMany(
             'App\Models\Company',

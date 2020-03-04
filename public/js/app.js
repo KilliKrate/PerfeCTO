@@ -2065,6 +2065,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2088,6 +2107,10 @@ __webpack_require__.r(__webpack_exports__);
     },
     onPageChange: function onPageChange() {
       this.getCompanies();
+      this.companies = null;
+    },
+    getColoredBorder: function getColoredBorder(color) {
+      return "4px solid " + color;
     }
   },
   mounted: function mounted() {
@@ -3436,158 +3459,249 @@ var render = function() {
     "v-container",
     { staticClass: "my-5" },
     [
-      _vm.companies
-        ? _c(
-            "v-list",
-            _vm._l(_vm.companies, function(company) {
-              return _c(
-                "v-card",
-                {
-                  key: company.id,
-                  staticClass: "pa-3 mb-2",
-                  attrs: { elevation: "4" }
-                },
-                [
-                  _c(
-                    "v-container",
+      _c(
+        "v-row",
+        { staticClass: "px-3 mb-1" },
+        [
+          _c(
+            "v-btn",
+            {
+              attrs: { small: "", flat: "" },
+              on: {
+                click: function($event) {
+                  return _vm.sortBy("business_name")
+                }
+              }
+            },
+            [
+              _c("v-icon", { attrs: { small: "", left: "" } }, [
+                _vm._v("mdi-sort-alphabetical-descending")
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "caption text-capitalize" }, [
+                _vm._v("Order by Business Name")
+              ])
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              attrs: { small: "", flat: "" },
+              on: {
+                click: function($event) {
+                  return _vm.sortBy("employees")
+                }
+              }
+            },
+            [
+              _c("v-icon", { attrs: { small: "", left: "" } }, [
+                _vm._v("mdi-sort-alphabetical-descending")
+              ]),
+              _vm._v(" "),
+              _c("span", { staticClass: "caption text-capitalize" }, [
+                _vm._v("Order by Business Name")
+              ])
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-list",
+        [
+          !_vm.companies
+            ? _c(
+                "div",
+                _vm._l(10, function(index) {
+                  return _c(
+                    "v-card",
+                    { key: index, staticClass: "pa-3 mb-2" },
                     [
-                      _c(
-                        "v-row",
-                        { attrs: { wrap: "" } },
-                        [
-                          _c("v-col", { attrs: { xs: "12", md: "3" } }, [
-                            _c(
-                              "div",
-                              { staticClass: "caption grey--text--darken-1" },
-                              [_vm._v("Business Name")]
-                            ),
-                            _vm._v(" "),
-                            _c("div", [
-                              _vm._v(_vm._s(company.attributes.business_name))
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("v-divider", {
-                            staticClass: "hidden-sm-and-down",
-                            attrs: { vertical: "" }
-                          }),
-                          _vm._v(" "),
-                          _c(
-                            "v-col",
-                            {
-                              staticClass: "text-center",
-                              attrs: { xs: "6", md: "2" }
-                            },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "caption grey--text--darken-1" },
-                                [_vm._v("Address")]
-                              ),
-                              _vm._v(" "),
-                              _c("div", [
-                                _vm._v(
-                                  _vm._s(company.relationships.address.name)
-                                )
-                              ])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-col",
-                            {
-                              staticClass: "text-center",
-                              attrs: { xs: "6", md: "2" }
-                            },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "caption grey--text--darken-1" },
-                                [_vm._v("Primary Field")]
-                              ),
-                              _vm._v(" "),
-                              _c("div", [
-                                _vm._v(_vm._s(company.relationships.type.name))
-                              ])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-col",
-                            {
-                              staticClass: "text-center hidden-sm-and-down",
-                              attrs: { md: "2" }
-                            },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "caption grey--text--darken-1" },
-                                [_vm._v("Company Size")]
-                              ),
-                              _vm._v(" "),
-                              _c("div", [
-                                _vm._v(
-                                  _vm._s(
-                                    company.attributes.employees
-                                      ? company.attributes.employees + " people"
-                                      : "N/A"
-                                  )
-                                )
-                              ])
-                            ]
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "v-col",
-                            {
-                              staticClass: "text-center hidden-sm-and-down",
-                              attrs: { md: "2" }
-                            },
-                            [
-                              _c(
-                                "div",
-                                { staticClass: "caption grey--text--darken-1" },
-                                [_vm._v("Ateco")]
-                              ),
-                              _vm._v(" "),
-                              _c("div", [
-                                _vm._v(
-                                  _vm._s(
-                                    company.attributes.ateco
-                                      ? company.attributes.ateco
-                                      : "N/A"
-                                  )
-                                )
-                              ])
-                            ]
-                          )
-                        ],
-                        1
-                      )
+                      _c("v-skeleton-loader", {
+                        attrs: { height: "100", type: "list-item-two-line" }
+                      })
                     ],
                     1
                   )
-                ],
+                }),
                 1
               )
-            }),
-            1
-          )
-        : _vm._e(),
+            : _vm._l(_vm.companies, function(company) {
+                return _c(
+                  "div",
+                  { key: company.id },
+                  [
+                    _c(
+                      "v-card",
+                      {
+                        staticClass: "pa-3 mb-2",
+                        style: {
+                          borderLeft: company.relationships.main_field
+                            ? _vm.getColoredBorder(
+                                company.relationships.main_field.colour
+                              )
+                            : "#eeeeee"
+                        },
+                        attrs: { elevation: "4" }
+                      },
+                      [
+                        _c(
+                          "v-container",
+                          [
+                            _c(
+                              "v-row",
+                              [
+                                _c(
+                                  "v-col",
+                                  {
+                                    staticClass: "text-center",
+                                    attrs: { md: "4", sm: "4", cols: "4" }
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "caption grey--text--darken-1"
+                                      },
+                                      [_vm._v("Business Name")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("div", [
+                                      _vm._v(
+                                        _vm._s(company.attributes.business_name)
+                                      )
+                                    ])
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("v-divider", {
+                                  staticClass: "hidden-sm-and-down",
+                                  attrs: { vertical: "" }
+                                }),
+                                _vm._v(" "),
+                                _c(
+                                  "v-col",
+                                  {
+                                    staticClass: "text-center",
+                                    attrs: { md: "3", sm: "4", cols: "4" }
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "caption grey--text--darken-1"
+                                      },
+                                      [_vm._v("Address")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("div", [
+                                      _vm._v(
+                                        _vm._s(company.relationships.address)
+                                      )
+                                    ])
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-col",
+                                  {
+                                    staticClass: "text-center",
+                                    attrs: { md: "2", sm: "4", cols: "4" }
+                                  },
+                                  [
+                                    _c(
+                                      "div",
+                                      {
+                                        staticClass:
+                                          "caption grey--text--darken-1"
+                                      },
+                                      [_vm._v("Company Size")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("div", [
+                                      _vm._v(
+                                        _vm._s(
+                                          company.attributes.employees
+                                            ? company.attributes.employees +
+                                                " PEOPLE"
+                                            : "N/A"
+                                        )
+                                      )
+                                    ])
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "v-col",
+                                  {
+                                    staticClass: "text-center",
+                                    attrs: { md: "2", sm: "12", cols: "12" }
+                                  },
+                                  [
+                                    _c(
+                                      "v-chip",
+                                      {
+                                        staticClass: "white--text mt-1",
+                                        attrs: {
+                                          color: company.relationships
+                                            .main_field
+                                            ? company.relationships.main_field
+                                                .colour
+                                            : "#424242"
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          _vm._s(
+                                            company.relationships.main_field
+                                              ? company.relationships.main_field
+                                                  .name
+                                              : "N/A"
+                                          )
+                                        )
+                                      ]
+                                    )
+                                  ],
+                                  1
+                                )
+                              ],
+                              1
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              })
+        ],
+        2
+      ),
       _vm._v(" "),
-      _vm.companies
-        ? _c("v-pagination", {
-            attrs: { length: _vm.pagination.total, "total-visible": 7 },
-            on: { input: _vm.onPageChange },
-            model: {
-              value: _vm.pagination.current,
-              callback: function($$v) {
-                _vm.$set(_vm.pagination, "current", $$v)
-              },
-              expression: "pagination.current"
-            }
-          })
-        : _vm._e()
+      _c("v-pagination", {
+        attrs: {
+          length: _vm.pagination.total,
+          "total-visible": 7,
+          color: "indigo"
+        },
+        on: { input: _vm.onPageChange },
+        model: {
+          value: _vm.pagination.current,
+          callback: function($$v) {
+            _vm.$set(_vm.pagination, "current", $$v)
+          },
+          expression: "pagination.current"
+        }
+      })
     ],
     1
   )

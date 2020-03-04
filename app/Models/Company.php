@@ -18,6 +18,7 @@ class Company extends Model
         'business_name',
         'n_employees',
         'contract_date',
+        'main_field',
         'type',
         'ateco',
         'address'
@@ -44,8 +45,13 @@ class Company extends Model
             'App\Models\Specialization',
             'companies_specializations',
             'company',
-            'specialization'
+            'specialization',
         );
+    }
+
+    public function main_field_rel()
+    {
+        return $this->belongsTo('App\Models\Field', 'main_field', 'id');
     }
 
     public function fields()

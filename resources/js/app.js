@@ -4,7 +4,6 @@ import Vuetify from './plugins/vuetify'
 
 import 'vuetify/dist/vuetify.min.css'
 
-
 import App from './views/App'
 import Home from './views/HomePage'
 import Companies from './views/CompaniesPage'
