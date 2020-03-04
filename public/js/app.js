@@ -2084,6 +2084,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2092,6 +2126,10 @@ __webpack_require__.r(__webpack_exports__);
       pagination: {
         current: 1,
         total: 0
+      },
+      sorting: {
+        field: "",
+        order: ""
       }
     };
   },
@@ -2099,7 +2137,8 @@ __webpack_require__.r(__webpack_exports__);
     getCompanies: function getCompanies() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/companies?page=" + this.pagination.current).then(function (response) {
+      this.companies = null;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/companies?\n          page=".concat(this.pagination.current, "&\n          sort=").concat(this.sorting.field, "&\n          order=").concat(this.sorting.order)).then(function (response) {
         _this.companies = response.data.data;
         _this.pagination.current = response.data.meta.current_page;
         _this.pagination.total = response.data.meta.last_page;
@@ -2111,6 +2150,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     getColoredBorder: function getColoredBorder(color) {
       return "4px solid " + color;
+    },
+    sort: function sort(field, order) {
+      this.sorting.field = field;
+      this.sorting.order = order;
+      this.pagination.current = 1;
+      this.getCompanies();
     }
   },
   mounted: function mounted() {
@@ -3464,45 +3509,137 @@ var render = function() {
         { staticClass: "px-3 mb-1" },
         [
           _c(
-            "v-btn",
+            "v-menu",
             {
-              attrs: { small: "", flat: "" },
-              on: {
-                click: function($event) {
-                  return _vm.sortBy("business_name")
+              attrs: { "open-on-hover": "", "offset-y": "" },
+              scopedSlots: _vm._u([
+                {
+                  key: "activator",
+                  fn: function(ref) {
+                    var on = ref.on
+                    return [
+                      _c(
+                        "v-btn",
+                        _vm._g({}, on),
+                        [
+                          _c("v-icon", { attrs: { small: "", left: "" } }, [
+                            _vm._v("mdi-sort-alphabetical")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "caption text-capitalize" },
+                            [_vm._v("Order by Business Name")]
+                          )
+                        ],
+                        1
+                      )
+                    ]
+                  }
                 }
-              }
+              ])
             },
             [
-              _c("v-icon", { attrs: { small: "", left: "" } }, [
-                _vm._v("mdi-sort-alphabetical-descending")
-              ]),
               _vm._v(" "),
-              _c("span", { staticClass: "caption text-capitalize" }, [
-                _vm._v("Order by Business Name")
-              ])
+              _c(
+                "v-list",
+                [
+                  _c(
+                    "v-list-item",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.sort("business_name", "asc")
+                        }
+                      }
+                    },
+                    [_c("v-list-item-title", [_vm._v("Ascending")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-item",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.sort("business_name", "desc")
+                        }
+                      }
+                    },
+                    [_c("v-list-item-title", [_vm._v("Descending")])],
+                    1
+                  )
+                ],
+                1
+              )
             ],
             1
           ),
           _vm._v(" "),
           _c(
-            "v-btn",
+            "v-menu",
             {
-              attrs: { small: "", flat: "" },
-              on: {
-                click: function($event) {
-                  return _vm.sortBy("employees")
+              attrs: { "open-on-hover": "", "offset-y": "" },
+              scopedSlots: _vm._u([
+                {
+                  key: "activator",
+                  fn: function(ref) {
+                    var on = ref.on
+                    return [
+                      _c(
+                        "v-btn",
+                        _vm._g({}, on),
+                        [
+                          _c("v-icon", { attrs: { small: "", left: "" } }, [
+                            _vm._v("mdi-sort-numeric")
+                          ]),
+                          _vm._v(" "),
+                          _c(
+                            "span",
+                            { staticClass: "caption text-capitalize" },
+                            [_vm._v("Order by Number of Employees")]
+                          )
+                        ],
+                        1
+                      )
+                    ]
+                  }
                 }
-              }
+              ])
             },
             [
-              _c("v-icon", { attrs: { small: "", left: "" } }, [
-                _vm._v("mdi-sort-alphabetical-descending")
-              ]),
               _vm._v(" "),
-              _c("span", { staticClass: "caption text-capitalize" }, [
-                _vm._v("Order by Business Name")
-              ])
+              _c(
+                "v-list",
+                [
+                  _c(
+                    "v-list-item",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.sort("n_employees", "asc")
+                        }
+                      }
+                    },
+                    [_c("v-list-item-title", [_vm._v("Ascending")])],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-list-item",
+                    {
+                      on: {
+                        click: function($event) {
+                          return _vm.sort("n_employees", "desc")
+                        }
+                      }
+                    },
+                    [_c("v-list-item-title", [_vm._v("Descending")])],
+                    1
+                  )
+                ],
+                1
+              )
             ],
             1
           )

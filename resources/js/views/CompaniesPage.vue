@@ -1,21 +1,54 @@
 <template>
   <v-container class="my-5">
     <v-row class="px-3 mb-1">
-      <v-btn small flat @click="sortBy('business_name')">
-        <v-icon small left>mdi-sort-alphabetical-descending</v-icon>
-        <span class="caption text-capitalize">Order by Business Name</span>
-      </v-btn>
-      <v-btn small flat @click="sortBy('employees')">
-        <v-icon small left>mdi-sort-alphabetical-descending</v-icon>
-        <span class="caption text-capitalize">Order by Business Name</span>
-      </v-btn>
+      <!-- Dropdown for Business Name sorting -->
+      <v-menu open-on-hover offset-y>
+        <template v-slot:activator="{ on }">
+          <v-btn v-on="on">
+            <v-icon small left>mdi-sort-alphabetical</v-icon>
+            <span class="caption text-capitalize">Order by Business Name</span>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item @click="sort('business_name', 'asc')">
+            <v-list-item-title>Ascending</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="sort('business_name', 'desc')">
+            <v-list-item-title>Descending</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+      <!-- End of Dropdown for Business Name sorting -->
+
+      <!-- Dropdown for Business Size sorting -->
+      <v-menu open-on-hover offset-y>
+        <template v-slot:activator="{ on }">
+          <v-btn v-on="on">
+            <v-icon small left>mdi-sort-numeric</v-icon>
+            <span class="caption text-capitalize">Order by Number of Employees</span>
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item @click="sort('n_employees', 'asc')">
+            <v-list-item-title>Ascending</v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="sort('n_employees', 'desc')">
+            <v-list-item-title>Descending</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+      <!-- End of Dropdown for Business Size sorting -->
     </v-row>
     <v-list>
+      <!-- Skeleton loaders for companies -->
       <div v-if="!companies">
         <v-card class="pa-3 mb-2" v-for="index in 10" :key="index">
           <v-skeleton-loader height="100" type="list-item-two-line"></v-skeleton-loader>
         </v-card>
       </div>
+      <!-- End of Skeleton loaders for companies -->
+
+      <!-- Company Cards -->
       <div v-for="company in companies" :key="company.id" v-else>
         <v-card
           class="pa-3 mb-2"
@@ -47,6 +80,7 @@
           </v-container>
         </v-card>
       </div>
+      <!-- End of Company Cards -->
     </v-list>
 
     <v-pagination
@@ -69,13 +103,23 @@ export default {
       pagination: {
         current: 1,
         total: 0
+      },
+      sorting: {
+        field: "",
+        order: ""
       }
     };
   },
   methods: {
     getCompanies() {
+      this.companies = null;
       axios
-        .get("/api/companies?page=" + this.pagination.current)
+        .get(
+          `/api/companies?
+          page=${this.pagination.current}&
+          sort=${this.sorting.field}&
+          order=${this.sorting.order}`
+        )
         .then(response => {
           this.companies = response.data.data;
           this.pagination.current = response.data.meta.current_page;
@@ -88,6 +132,12 @@ export default {
     },
     getColoredBorder(color) {
       return "4px solid " + color;
+    },
+    sort(field, order) {
+      this.sorting.field = field;
+      this.sorting.order = order;
+      this.pagination.current = 1;
+      this.getCompanies();
     }
   },
   mounted() {

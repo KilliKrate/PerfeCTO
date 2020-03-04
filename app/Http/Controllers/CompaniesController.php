@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests;
-use Illuminate\Support\Facades\DB;
 use App\Models\Company;
 use App\Models\Type;
 use App\Models\Ateco;
@@ -19,10 +18,15 @@ class CompaniesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Get companies
-        $companies = Company::paginate(15);
+        if (!empty($request->sort) && !empty($request->order)) {
+            $companies = Company::orderBy($request->sort, $request->order)->paginate(15);
+        } else {
+            $companies = Company::paginate(15);
+        }
+
+
 
         // Return collection of companies as a resource
         return CompanyResource::collection($companies);
