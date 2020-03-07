@@ -53,10 +53,11 @@
         <v-card
           class="pa-3 mb-2"
           elevation="4"
-          :style="{borderLeft: company.relationships.main_field ? getColoredBorder(company.relationships.main_field.colour) : '#eeeeee'}"
+          :to="{ name: 'company', params: { id: company.id }}"
+          :style="{borderLeft: company.relationships.main_field ? getColoredBorder(company.relationships.main_field.color) : '#eeeeee'}"
         >
           <v-container>
-            <v-row>
+            <v-row align="center">
               <v-col class="text-center" md="4" sm="4" cols="4">
                 <div class="caption grey--text--darken-1">Business Name</div>
                 <div>{{company.attributes.business_name}}</div>
@@ -72,10 +73,13 @@
               </v-col>
               <v-col class="text-center" md="2" sm="12" cols="12">
                 <v-chip
-                  class="white--text mt-1"
-                  :color="company.relationships.main_field ? company.relationships.main_field.colour : '#424242'"
+                  class="white--text"
+                  :color="company.relationships.main_field ? company.relationships.main_field.color : '#424242'"
                 >{{company.relationships.main_field ? company.relationships.main_field.name : 'N/A'}}</v-chip>
               </v-col>
+              <v-btn icon @click="deleteCompany(company.id)">
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
             </v-row>
           </v-container>
         </v-card>
@@ -125,6 +129,11 @@ export default {
           this.pagination.current = response.data.meta.current_page;
           this.pagination.total = response.data.meta.last_page;
         });
+    },
+    deleteCompany(companyID) {
+      let i = this.companies.map(company => company.id).indexOf(companyID);
+      this.companies.splice(i, 1);
+      axios.delete(`/api/companies/${companyID}`);
     },
     onPageChange() {
       this.getCompanies();

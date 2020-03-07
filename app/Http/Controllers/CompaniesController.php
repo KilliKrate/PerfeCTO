@@ -9,6 +9,7 @@ use App\Models\Type;
 use App\Models\Ateco;
 use App\Models\Address;
 use App\Http\Resources\Company as CompanyResource;
+use App\Http\Resources\CompanyCollection;
 
 
 class CompaniesController extends Controller
@@ -26,10 +27,8 @@ class CompaniesController extends Controller
             $companies = Company::paginate(15);
         }
 
-
-
         // Return collection of companies as a resource
-        return CompanyResource::collection($companies);
+        return new CompanyCollection($companies);
     }
 
     /**
@@ -79,6 +78,7 @@ class CompaniesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // TODO: Destroy the other models that are related to the company (companes_fields, companies_specializations, contacts...)
     public function destroy($id)
     {
         // Get a single company

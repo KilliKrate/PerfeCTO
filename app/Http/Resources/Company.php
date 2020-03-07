@@ -20,12 +20,14 @@ class Company extends JsonResource
             'attributes' => [
                 'business_name' => $this->business_name,
                 'employees' => $this->n_employees,
-                'ateco' => $this->ateco
+                'ateco' => $this->ateco_rel
             ],
             'relationships' => [
-                'type' => $this->type_rel->name,
-                'address' => $this->address_rel->name,
-                'main_field' => $this->main_field_rel
+                'type' => $this->type_rel,
+                'address' => $this->address_rel,
+                'main_field' => $this->main_field_rel,
+                'specializations' => $this->specializations,
+                'secondary_fields' => $this->fields
             ]
         ];
     }

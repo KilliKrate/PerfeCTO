@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 Route::get('companies', 'CompaniesController@index');
 
 // List single company
-Route::get('company/{id}', 'CompaniesController@show');
+Route::get('companies/{id}', 'CompaniesController@show');
 
 // Create new company
 Route::post('company', 'CompaniesController@store');
@@ -26,4 +26,4 @@ Route::post('company', 'CompaniesController@store');
 Route::put('company', 'CompaniesController@store');
 
 // Delete company
-Route::delete('company/{id}', 'CompaniesController@destroy');
+Route::delete('companies/{id}', 'CompaniesController@destroy');

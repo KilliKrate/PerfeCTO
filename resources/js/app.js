@@ -10,6 +10,7 @@ import Companies from './views/CompaniesPage'
 import Dashboard from './views/DashboardPage'
 import Login from './views/LoginPage'
 import About from './views/AboutPage'
+import Company from './views/CompanyPage'
 
 Vue.use(Vuetify);
 Vue.use(VueRouter)
@@ -40,6 +41,12 @@ const router = new VueRouter({
             path: '/app/about',
             name: 'about',
             component: About
+        },
+        {
+            path: '/app/companies/:id',
+            name: 'company',
+            component: Company
+
         }
     ]
 });
