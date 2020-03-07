@@ -3,7 +3,9 @@
     <Navbar />
     <v-content>
       <!--TODO: Figure out a way to keep only the companies page alive-->
-      <router-view />
+      <keep-alive include="Companies">
+        <router-view />
+      </keep-alive>
     </v-content>
   </v-app>
 </template>

@@ -77,7 +77,7 @@
                   :color="company.relationships.main_field ? company.relationships.main_field.color : '#424242'"
                 >{{company.relationships.main_field ? company.relationships.main_field.name : 'N/A'}}</v-chip>
               </v-col>
-              <v-btn icon @click="deleteCompany(company.id)">
+              <v-btn icon v-on:click.prevent="deleteCompany(company.id)">
                 <v-icon>mdi-close</v-icon>
               </v-btn>
             </v-row>
@@ -101,6 +101,7 @@
 import axios from "axios";
 
 export default {
+  name: "Companies",
   data() {
     return {
       companies: null,
